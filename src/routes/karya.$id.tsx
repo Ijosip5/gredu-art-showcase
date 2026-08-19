@@ -64,7 +64,7 @@ function DetailPage() {
             />
           </div>
           <div className="mt-4 grid grid-cols-3 gap-3">
-            {[karya.category, karya.creator.split("&")[0].trim(), "Gredupedia 2026"].map((t, i) => (
+            {[karya.category, karya.creator.split("&")[0]?.trim() ?? karya.creator, "Gredupedia 2026"].map((t, i) => (
               <div
                 key={i}
                 className="rounded-2xl border border-border bg-card p-3 text-center text-xs font-medium text-muted-foreground"

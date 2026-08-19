@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as KaryaIndexRouteImport } from './routes/karya.index'
+import { Route as KaryaIdRouteImport } from './routes/karya.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KaryaIndexRoute = KaryaIndexRouteImport.update({
+  id: '/karya/',
+  path: '/karya/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KaryaIdRoute = KaryaIdRouteImport.update({
+  id: '/karya/$id',
+  path: '/karya/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/karya/$id': typeof KaryaIdRoute
+  '/karya/': typeof KaryaIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/karya/$id': typeof KaryaIdRoute
+  '/karya': typeof KaryaIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/karya/$id': typeof KaryaIdRoute
+  '/karya/': typeof KaryaIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/karya/$id' | '/karya/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/karya/$id' | '/karya'
+  id: '__root__' | '/' | '/karya/$id' | '/karya/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  KaryaIdRoute: typeof KaryaIdRoute
+  KaryaIndexRoute: typeof KaryaIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/karya/': {
+      id: '/karya/'
+      path: '/karya'
+      fullPath: '/karya/'
+      preLoaderRoute: typeof KaryaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/karya/$id': {
+      id: '/karya/$id'
+      path: '/karya/$id'
+      fullPath: '/karya/$id'
+      preLoaderRoute: typeof KaryaIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  KaryaIdRoute: KaryaIdRoute,
+  KaryaIndexRoute: KaryaIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
