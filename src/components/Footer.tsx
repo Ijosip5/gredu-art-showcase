@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ChevronDown, Instagram, Youtube, ArrowUpRight, MapPin, Mail } from "lucide-react";
+import { ChevronDown, Instagram, Youtube, ArrowUpRight, MapPin, Mail, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 
 const ARCHIVES = [
@@ -64,6 +64,14 @@ export function Footer() {
               >
                 Dokumentasi
               </a>
+            </li>
+            <li>
+              <Link
+                to="/admin/login"
+                className="inline-flex items-center gap-1.5 text-background/75 transition-smooth hover:text-highlight"
+              >
+                <ShieldCheck className="h-3.5 w-3.5 text-highlight" /> Admin Login
+              </Link>
             </li>
           </ul>
         </div>

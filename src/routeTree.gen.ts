@@ -10,12 +10,37 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminLayoutRouteImport } from './routes/admin/_layout'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as KaryaIndexRouteImport } from './routes/karya.index'
 import { Route as KaryaIdRouteImport } from './routes/karya.$id'
+import { Route as AdminKaryaIndexRouteImport } from './routes/admin/karya/index'
+import { Route as AdminKaryaTambahRouteImport } from './routes/admin/karya/tambah'
+import { Route as AdminKategoriIndexRouteImport } from './routes/admin/kategori/index'
+import { Route as AdminPesertaIndexRouteImport } from './routes/admin/peserta/index'
+import { Route as AdminPesertaTambahRouteImport } from './routes/admin/peserta/tambah'
+import { Route as AdminKaryaIdEditRouteImport } from './routes/admin/karya/$id.edit'
+import { Route as AdminPesertaIdEditRouteImport } from './routes/admin/peserta/$id.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLayoutRoute = AdminLayoutRouteImport.update({
+  id: '/admin/_layout',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KaryaIndexRoute = KaryaIndexRouteImport.update({
@@ -28,35 +53,148 @@ const KaryaIdRoute = KaryaIdRouteImport.update({
   path: '/karya/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminKaryaIndexRoute = AdminKaryaIndexRouteImport.update({
+  id: '/admin/karya/',
+  path: '/admin/karya/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminKaryaTambahRoute = AdminKaryaTambahRouteImport.update({
+  id: '/admin/karya/tambah',
+  path: '/admin/karya/tambah',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminKategoriIndexRoute = AdminKategoriIndexRouteImport.update({
+  id: '/admin/kategori/',
+  path: '/admin/kategori/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPesertaIndexRoute = AdminPesertaIndexRouteImport.update({
+  id: '/admin/peserta/',
+  path: '/admin/peserta/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPesertaTambahRoute = AdminPesertaTambahRouteImport.update({
+  id: '/admin/peserta/tambah',
+  path: '/admin/peserta/tambah',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminKaryaIdEditRoute = AdminKaryaIdEditRouteImport.update({
+  id: '/admin/karya/$id/edit',
+  path: '/admin/karya/$id/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPesertaIdEditRoute = AdminPesertaIdEditRouteImport.update({
+  id: '/admin/peserta/$id/edit',
+  path: '/admin/peserta/$id/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminLayoutRoute
+  '/admin/login': typeof AdminLoginRoute
   '/karya/$id': typeof KaryaIdRoute
+  '/admin/': typeof AdminIndexRoute
   '/karya/': typeof KaryaIndexRoute
+  '/admin/karya/tambah': typeof AdminKaryaTambahRoute
+  '/admin/peserta/tambah': typeof AdminPesertaTambahRoute
+  '/admin/karya/': typeof AdminKaryaIndexRoute
+  '/admin/kategori/': typeof AdminKategoriIndexRoute
+  '/admin/peserta/': typeof AdminPesertaIndexRoute
+  '/admin/karya/$id/edit': typeof AdminKaryaIdEditRoute
+  '/admin/peserta/$id/edit': typeof AdminPesertaIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/login': typeof AdminLoginRoute
   '/karya/$id': typeof KaryaIdRoute
   '/karya': typeof KaryaIndexRoute
+  '/admin/karya/tambah': typeof AdminKaryaTambahRoute
+  '/admin/peserta/tambah': typeof AdminPesertaTambahRoute
+  '/admin/karya': typeof AdminKaryaIndexRoute
+  '/admin/kategori': typeof AdminKategoriIndexRoute
+  '/admin/peserta': typeof AdminPesertaIndexRoute
+  '/admin/karya/$id/edit': typeof AdminKaryaIdEditRoute
+  '/admin/peserta/$id/edit': typeof AdminPesertaIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin/_layout': typeof AdminLayoutRoute
+  '/admin/login': typeof AdminLoginRoute
   '/karya/$id': typeof KaryaIdRoute
+  '/admin/': typeof AdminIndexRoute
   '/karya/': typeof KaryaIndexRoute
+  '/admin/karya/tambah': typeof AdminKaryaTambahRoute
+  '/admin/peserta/tambah': typeof AdminPesertaTambahRoute
+  '/admin/karya/': typeof AdminKaryaIndexRoute
+  '/admin/kategori/': typeof AdminKategoriIndexRoute
+  '/admin/peserta/': typeof AdminPesertaIndexRoute
+  '/admin/karya/$id/edit': typeof AdminKaryaIdEditRoute
+  '/admin/peserta/$id/edit': typeof AdminPesertaIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/karya/$id' | '/karya/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/admin/login'
+    | '/karya/$id'
+    | '/admin/'
+    | '/karya/'
+    | '/admin/karya/tambah'
+    | '/admin/peserta/tambah'
+    | '/admin/karya/'
+    | '/admin/kategori/'
+    | '/admin/peserta/'
+    | '/admin/karya/$id/edit'
+    | '/admin/peserta/$id/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/karya/$id' | '/karya'
-  id: '__root__' | '/' | '/karya/$id' | '/karya/'
+  to:
+    | '/'
+    | '/admin'
+    | '/admin/login'
+    | '/karya/$id'
+    | '/karya'
+    | '/admin/karya/tambah'
+    | '/admin/peserta/tambah'
+    | '/admin/karya'
+    | '/admin/kategori'
+    | '/admin/peserta'
+    | '/admin/karya/$id/edit'
+    | '/admin/peserta/$id/edit'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin/_layout'
+    | '/admin/login'
+    | '/karya/$id'
+    | '/admin/'
+    | '/karya/'
+    | '/admin/karya/tambah'
+    | '/admin/peserta/tambah'
+    | '/admin/karya/'
+    | '/admin/kategori/'
+    | '/admin/peserta/'
+    | '/admin/karya/$id/edit'
+    | '/admin/peserta/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminLayoutRoute: typeof AdminLayoutRoute
+  AdminLoginRoute: typeof AdminLoginRoute
   KaryaIdRoute: typeof KaryaIdRoute
+  AdminIndexRoute: typeof AdminIndexRoute
   KaryaIndexRoute: typeof KaryaIndexRoute
+  AdminKaryaTambahRoute: typeof AdminKaryaTambahRoute
+  AdminPesertaTambahRoute: typeof AdminPesertaTambahRoute
+  AdminKaryaIndexRoute: typeof AdminKaryaIndexRoute
+  AdminKategoriIndexRoute: typeof AdminKategoriIndexRoute
+  AdminPesertaIndexRoute: typeof AdminPesertaIndexRoute
+  AdminKaryaIdEditRoute: typeof AdminKaryaIdEditRoute
+  AdminPesertaIdEditRoute: typeof AdminPesertaIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +204,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/_layout': {
+      id: '/admin/_layout'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/karya/': {
@@ -82,13 +241,72 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KaryaIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/karya/': {
+      id: '/admin/karya/'
+      path: '/admin/karya'
+      fullPath: '/admin/karya/'
+      preLoaderRoute: typeof AdminKaryaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/karya/tambah': {
+      id: '/admin/karya/tambah'
+      path: '/admin/karya/tambah'
+      fullPath: '/admin/karya/tambah'
+      preLoaderRoute: typeof AdminKaryaTambahRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/kategori/': {
+      id: '/admin/kategori/'
+      path: '/admin/kategori'
+      fullPath: '/admin/kategori/'
+      preLoaderRoute: typeof AdminKategoriIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/peserta/': {
+      id: '/admin/peserta/'
+      path: '/admin/peserta'
+      fullPath: '/admin/peserta/'
+      preLoaderRoute: typeof AdminPesertaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/peserta/tambah': {
+      id: '/admin/peserta/tambah'
+      path: '/admin/peserta/tambah'
+      fullPath: '/admin/peserta/tambah'
+      preLoaderRoute: typeof AdminPesertaTambahRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/karya/$id/edit': {
+      id: '/admin/karya/$id/edit'
+      path: '/admin/karya/$id/edit'
+      fullPath: '/admin/karya/$id/edit'
+      preLoaderRoute: typeof AdminKaryaIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/peserta/$id/edit': {
+      id: '/admin/peserta/$id/edit'
+      path: '/admin/peserta/$id/edit'
+      fullPath: '/admin/peserta/$id/edit'
+      preLoaderRoute: typeof AdminPesertaIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminLayoutRoute: AdminLayoutRoute,
+  AdminLoginRoute: AdminLoginRoute,
   KaryaIdRoute: KaryaIdRoute,
+  AdminIndexRoute: AdminIndexRoute,
   KaryaIndexRoute: KaryaIndexRoute,
+  AdminKaryaTambahRoute: AdminKaryaTambahRoute,
+  AdminPesertaTambahRoute: AdminPesertaTambahRoute,
+  AdminKaryaIndexRoute: AdminKaryaIndexRoute,
+  AdminKategoriIndexRoute: AdminKategoriIndexRoute,
+  AdminPesertaIndexRoute: AdminPesertaIndexRoute,
+  AdminKaryaIdEditRoute: AdminKaryaIdEditRoute,
+  AdminPesertaIdEditRoute: AdminPesertaIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

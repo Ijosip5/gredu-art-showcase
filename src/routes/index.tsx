@@ -11,10 +11,11 @@ import {
   Users,
 } from "lucide-react";
 import { useState } from "react";
-import { MOCK_KARYA } from "@/data/karya";
+import { useQuery } from "@tanstack/react-query";
+import { fetchFeaturedWorks } from "@/data/karya";
 import { KaryaCard } from "@/components/KaryaCard";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/")(({
   head: () => ({
     meta: [
       { title: "Gredupedia 2026 — Pameran Digital Teknologi Pendidikan UNY" },
@@ -32,7 +33,7 @@ export const Route = createFileRoute("/")({
     ],
   }),
   component: Home,
-});
+}) as any);
 
 const AGENDA = [
   {
@@ -69,9 +70,30 @@ const DOKUMENTASI = [
   "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=900",
 ];
 
+function FeaturedSkeleton() {
+  return (
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <div key={i} className="animate-pulse rounded-3xl border border-border bg-card">
+          <div className="aspect-[4/3] rounded-t-3xl bg-muted" />
+          <div className="p-5 space-y-2">
+            <div className="h-4 w-3/4 rounded bg-muted" />
+            <div className="h-3 w-1/2 rounded bg-muted" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Home() {
   const [active, setActive] = useState(0);
-  const featured = MOCK_KARYA.filter((k) => k.featured).slice(0, 4);
+
+  const { data: featured = [], isLoading } = useQuery({
+    queryKey: ["featured-works"],
+    queryFn: () => fetchFeaturedWorks(4),
+    staleTime: 1000 * 60 * 5, // 5 min cache
+  });
 
   return (
     <main>
@@ -246,10 +268,18 @@ function Home() {
             <ArrowRight className="h-4 w-4 transition-smooth group-hover:translate-x-1" />
           </Link>
         </div>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {featured.map((k) => (
-            <KaryaCard key={k.id} karya={k} />
-          ))}
+        <div className="mt-10">
+          {isLoading ? (
+            <FeaturedSkeleton />
+          ) : featured.length === 0 ? (
+            <p className="text-center text-muted-foreground py-12">Belum ada karya unggulan.</p>
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {featured.map((k) => (
+                <KaryaCard key={k.id} karya={k} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

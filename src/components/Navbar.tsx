@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -51,6 +51,13 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Link
+            to="/admin/login"
+            className="hidden items-center gap-1.5 rounded-full border border-border px-4 py-2 text-xs font-semibold transition-smooth hover:border-primary hover:text-primary sm:inline-flex"
+            title="Masuk ke Panel Admin"
+          >
+            <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Admin
+          </Link>
+          <Link
             to="/karya"
             className="hidden items-center gap-1.5 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-soft transition-smooth hover:-translate-y-0.5 hover:shadow-lift sm:inline-flex"
           >
@@ -67,7 +74,7 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <div className="border-t border-border bg-background px-5 py-3 md:hidden">
+        <div className="border-t border-border bg-background px-5 py-3 md:hidden space-y-2">
           {SECTIONS.map((s) => (
             <a
               key={s.id}
@@ -79,9 +86,16 @@ export function Navbar() {
             </a>
           ))}
           <Link
+            to="/admin/login"
+            onClick={() => setOpen(false)}
+            className="flex items-center justify-center gap-1.5 rounded-full border border-border px-5 py-2.5 text-sm font-medium"
+          >
+            <ShieldCheck className="h-4 w-4 text-primary" /> Admin Login
+          </Link>
+          <Link
             to="/karya"
             onClick={() => setOpen(false)}
-            className="mt-2 flex items-center justify-center gap-1.5 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+            className="flex items-center justify-center gap-1.5 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
           >
             Eksplor Galeri <ArrowUpRight className="h-4 w-4" />
           </Link>
