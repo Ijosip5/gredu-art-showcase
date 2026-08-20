@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Plus, Edit2, Search, ImageIcon, Users, UserPlus, ArrowLeft } from "lucide-react";
+import { Plus, Edit2, Search, ImageIcon, Users, UserPlus } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { AddParticipantModal } from "@/components/admin/AddParticipantModal";
@@ -39,22 +39,13 @@ function AdminPeserta() {
 
   return (
     <div className="space-y-6">
-      {/* Top Header with Back Button */}
+      {/* Top Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <Link
-            to="/admin"
-            className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-medium transition-smooth hover:border-primary hover:text-primary hover:shadow-soft"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Kembali
-          </Link>
-          <div>
-            <h1 className="font-display text-3xl font-bold">Kelola Peserta</h1>
-            <p className="mt-0.5 text-muted-foreground text-sm">
-              {participants.length} peserta terdaftar
-            </p>
-          </div>
+        <div>
+          <h1 className="font-display text-3xl font-bold tracking-tight">Kelola Peserta</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {participants.length} peserta terdaftar
+          </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">

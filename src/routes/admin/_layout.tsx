@@ -127,6 +127,14 @@ function AdminLayout() {
           >
             <Menu className="h-5 w-5" />
           </button>
+          {/* Current page breadcrumb — visible on mobile */}
+          <span className="text-sm font-semibold text-muted-foreground lg:hidden">
+            {NAV.find((n) =>
+              n.exact
+                ? location.pathname === n.to
+                : location.pathname.startsWith(n.to),
+            )?.label ?? "Admin"}
+          </span>
           <div className="flex-1" />
           <Link
             to="/"

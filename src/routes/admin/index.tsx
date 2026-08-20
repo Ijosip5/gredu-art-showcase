@@ -197,7 +197,7 @@ function AdminDashboard() {
             label: "Tambah Karya Baru",
             sub: "Input manual karya satu-satu",
             icon: Plus,
-            color: "text-primary border-primary/20 hover:border-primary",
+            color: "border-border hover:border-primary hover:text-primary",
           },
           {
             to: "/admin/peserta",
