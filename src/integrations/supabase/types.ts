@@ -20,28 +20,28 @@ export type Database = {
           description: string | null
           id: string
           name: string
-          slug: string
+          slug: string | null
         }
         Insert: {
           created_at?: string
           description?: string | null
           id?: string
           name: string
-          slug: string
+          slug?: string | null
         }
         Update: {
           created_at?: string
           description?: string | null
           id?: string
           name?: string
-          slug?: string
+          slug?: string | null
         }
         Relationships: []
       }
       participants: {
         Row: {
           bio: string | null
-          cohort: string | null
+          class: string | null
           created_at: string
           id: string
           name: string
@@ -50,7 +50,7 @@ export type Database = {
         }
         Insert: {
           bio?: string | null
-          cohort?: string | null
+          class?: string | null
           created_at?: string
           id?: string
           name: string
@@ -59,7 +59,7 @@ export type Database = {
         }
         Update: {
           bio?: string | null
-          cohort?: string | null
+          class?: string | null
           created_at?: string
           id?: string
           name?: string
@@ -94,48 +94,51 @@ export type Database = {
           category_id: string
           created_at: string
           description: string
+          external_link: string | null
           goals: string | null
           id: string
           is_featured: boolean
+          media_tools: string | null
           media_url: string | null
           participant_id: string
-          slug: string
+          slug: string | null
           status: Database["public"]["Enums"]["work_status"]
           thumbnail_url: string | null
           title: string
-          tools: string | null
           updated_at: string
         }
         Insert: {
           category_id: string
           created_at?: string
           description?: string
+          external_link?: string | null
           goals?: string | null
           id?: string
           is_featured?: boolean
+          media_tools?: string | null
           media_url?: string | null
           participant_id: string
-          slug: string
+          slug?: string | null
           status?: Database["public"]["Enums"]["work_status"]
           thumbnail_url?: string | null
           title: string
-          tools?: string | null
           updated_at?: string
         }
         Update: {
           category_id?: string
           created_at?: string
           description?: string
+          external_link?: string | null
           goals?: string | null
           id?: string
           is_featured?: boolean
+          media_tools?: string | null
           media_url?: string | null
           participant_id?: string
-          slug?: string
+          slug?: string | null
           status?: Database["public"]["Enums"]["work_status"]
           thumbnail_url?: string | null
           title?: string
-          tools?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -167,6 +170,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      slugify: { Args: { _text: string }; Returns: string }
     }
     Enums: {
       app_role: "admin" | "editor"
