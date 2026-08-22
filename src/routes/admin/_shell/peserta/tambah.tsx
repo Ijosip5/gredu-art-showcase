@@ -4,7 +4,7 @@ import { ArrowLeft, Users } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { ParticipantForm, type ParticipantFormValues } from "@/components/admin/ParticipantForm";
 
-export const Route = createFileRoute("/admin/peserta/tambah")(({
+export const Route = createFileRoute("/admin/_shell/peserta/tambah")(({
   head: () => ({ meta: [{ title: "Tambah Peserta — Admin Gredupedia" }] }),
   component: TambahPeserta,
 }) as any);

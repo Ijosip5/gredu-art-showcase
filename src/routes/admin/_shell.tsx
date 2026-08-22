@@ -18,20 +18,34 @@ import {
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 
-export const Route = createFileRoute("/admin/_layout")(({
+export const Route = createFileRoute("/admin/_shell")(({
+  // Session lives in localStorage, so this subtree is client-rendered only.
+  ssr: false,
   beforeLoad: async ({ location }: { location: { href: string } }) => {
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    if (!session) {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
       throw redirect({
         to: "/admin/login",
         search: { redirect: location.href },
       });
     }
+    const { data: isAdmin } = await supabase.rpc("has_role", {
+      _user_id: user.id,
+      _role: "admin",
+    });
+    if (!isAdmin) {
+      throw redirect({
+        to: "/admin/login",
+        search: { redirect: location.href, denied: "1" },
+      });
+    }
+    return { user };
   },
   component: AdminLayout,
 }) as any);
+
 
 const NAV: Array<{ to: string; label: string; icon: React.ElementType; exact?: boolean }> = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },

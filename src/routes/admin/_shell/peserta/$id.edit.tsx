@@ -4,7 +4,7 @@ import { ArrowLeft, Trash2, ImageIcon } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { ParticipantForm, type ParticipantFormValues } from "@/components/admin/ParticipantForm";
 
-export const Route = createFileRoute("/admin/peserta/$id/edit")(({
+export const Route = createFileRoute("/admin/_shell/peserta/$id/edit")(({
   head: () => ({ meta: [{ title: "Edit Peserta — Admin Gredupedia" }] }),
   component: EditPeserta,
 }) as any);
