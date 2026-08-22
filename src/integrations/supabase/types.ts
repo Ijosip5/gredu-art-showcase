@@ -91,16 +91,16 @@ export type Database = {
       }
       works: {
         Row: {
-          category_id: string
+          category_id: string | null
           created_at: string
-          description: string
+          description: string | null
           external_link: string | null
           goals: string | null
           id: string
           is_featured: boolean
           media_tools: string | null
           media_url: string | null
-          participant_id: string
+          participant_id: string | null
           slug: string | null
           status: Database["public"]["Enums"]["work_status"]
           thumbnail_url: string | null
@@ -108,16 +108,16 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          category_id: string
+          category_id?: string | null
           created_at?: string
-          description?: string
+          description?: string | null
           external_link?: string | null
           goals?: string | null
           id?: string
           is_featured?: boolean
           media_tools?: string | null
           media_url?: string | null
-          participant_id: string
+          participant_id?: string | null
           slug?: string | null
           status?: Database["public"]["Enums"]["work_status"]
           thumbnail_url?: string | null
@@ -125,16 +125,16 @@ export type Database = {
           updated_at?: string
         }
         Update: {
-          category_id?: string
+          category_id?: string | null
           created_at?: string
-          description?: string
+          description?: string | null
           external_link?: string | null
           goals?: string | null
           id?: string
           is_featured?: boolean
           media_tools?: string | null
           media_url?: string | null
-          participant_id?: string
+          participant_id?: string | null
           slug?: string | null
           status?: Database["public"]["Enums"]["work_status"]
           thumbnail_url?: string | null
