@@ -18,7 +18,7 @@ import {
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 
-export const Route = createFileRoute("/admin/_layout")(({
+export const Route = createFileRoute("/admin/_shell")(({
   beforeLoad: async ({ location }: { location: { href: string } }) => {
     const {
       data: { session },

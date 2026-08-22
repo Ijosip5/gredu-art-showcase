@@ -4,7 +4,7 @@ import { Plus, Edit2, Archive, Eye, EyeOff, Star, StarOff, Search, ArrowLeft } f
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 
-export const Route = createFileRoute("/admin/karya/")(({
+export const Route = createFileRoute("/admin/_shell/_shell/karya/")(({
   head: () => ({ meta: [{ title: "Kelola Karya — Admin Gredupedia" }] }),
   component: AdminKarya,
 }) as any);

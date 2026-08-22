@@ -19,7 +19,7 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { AddArtworkModal } from "@/components/admin/AddArtworkModal";
 
-export const Route = createFileRoute("/admin/")(({
+export const Route = createFileRoute("/admin/_shell/_shell/")(({
   head: () => ({ meta: [{ title: "Dashboard — Admin Gredupedia" }] }),
   component: AdminDashboard,
 }) as any);

@@ -4,7 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { ArtworkForm, type WorkFormValues } from "@/components/admin/ArtworkForm";
 
-export const Route = createFileRoute("/admin/karya/tambah")(({
+export const Route = createFileRoute("/admin/_shell/_shell/karya/tambah")(({
   head: () => ({ meta: [{ title: "Tambah Karya — Admin Gredupedia" }] }),
   component: TambahKarya,
 }) as any);

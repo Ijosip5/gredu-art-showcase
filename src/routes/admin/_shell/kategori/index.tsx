@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Plus, Edit2, Trash2, Check, X, Tag } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
-export const Route = createFileRoute("/admin/kategori/")((({
+export const Route = createFileRoute("/admin/_shell/_shell/kategori/")((({
   head: () => ({ meta: [{ title: "Kelola Kategori — Admin Gredupedia" }] }),
   component: AdminKategori,
 }) as any));
