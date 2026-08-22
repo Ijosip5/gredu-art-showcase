@@ -5,7 +5,7 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { AddParticipantModal } from "@/components/admin/AddParticipantModal";
 
-export const Route = createFileRoute("/admin/_shell/_shell/peserta/")(({
+export const Route = createFileRoute("/admin/_shell/peserta/")(({
   head: () => ({ meta: [{ title: "Kelola Peserta — Admin Gredupedia" }] }),
   component: AdminPeserta,
 }) as any);
