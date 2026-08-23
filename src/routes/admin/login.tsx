@@ -96,12 +96,34 @@ function LoginPage() {
             <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl gradient-hero shadow-soft">
               <LogIn className="h-6 w-6 text-primary-foreground" />
             </div>
-            <h1 className="font-display text-2xl font-bold">Admin Login</h1>
+            <h1 className="font-display text-2xl font-bold">
+              {mode === "login" ? "Admin Login" : "Daftar Admin"}
+            </h1>
             <p className="mt-1 text-sm text-muted-foreground">Gredupedia CMS · Panel Pengelola</p>
+          </div>
+
+          <div className="mb-6 flex w-full rounded-xl border border-border bg-secondary p-1">
+            {(["login", "signup"] as const).map((m) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => {
+                  setMode(m);
+                  setError(null);
+                  setInfo(null);
+                }}
+                className={`flex-1 rounded-lg py-2 text-xs font-semibold transition-smooth ${
+                  mode === m ? "bg-card text-foreground shadow-soft" : "text-muted-foreground"
+                }`}
+              >
+                {m === "login" ? "Masuk" : "Daftar"}
+              </button>
+            ))}
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
+
             <div>
               <label htmlFor="login-email" className="mb-1.5 block text-sm font-medium">
                 Email
