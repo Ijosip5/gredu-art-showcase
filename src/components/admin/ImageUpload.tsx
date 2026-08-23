@@ -20,12 +20,14 @@ export function ImageUpload({ value, onChange, disabled }: ImageUploadProps) {
       alert("Harap pilih file gambar (JPG, PNG, WebP).");
       return;
     }
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Ukuran gambar maksimal 5MB.");
+      return;
+    }
     setUploading(true);
     const ext = file.name.split(".").pop();
     const path = `works/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    const { error } = await supabase.storage
-      .from("thumbnails")
-      .upload(path, file, { upsert: false });
+    const { error } = await supabase.storage.from("karya").upload(path, file, { upsert: false });
 
     if (error) {
       alert("Upload gagal: " + error.message);
@@ -33,10 +35,21 @@ export function ImageUpload({ value, onChange, disabled }: ImageUploadProps) {
       return;
     }
 
-    const { data } = supabase.storage.from("thumbnails").getPublicUrl(path);
-    onChange(data.publicUrl);
+    // Bucket is private, so store a long-lived signed URL (10 years).
+    const { data, error: signError } = await supabase.storage
+      .from("karya")
+      .createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
+
+    if (signError || !data) {
+      alert("Gagal membuat tautan gambar: " + (signError?.message ?? "unknown"));
+      setUploading(false);
+      return;
+    }
+
+    onChange(data.signedUrl);
     setUploading(false);
   };
+
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
