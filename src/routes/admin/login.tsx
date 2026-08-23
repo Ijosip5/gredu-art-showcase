@@ -12,27 +12,75 @@ export const Route = createFileRoute("/admin/login")(({
 
 function LoginPage() {
   const navigate = useNavigate();
+  const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [info, setInfo] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setInfo(null);
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (mode === "signup") {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { emailRedirectTo: `${window.location.origin}/admin/login` },
+      });
+      if (signUpError) {
+        setError(signUpError.message);
+        setLoading(false);
+        return;
+      }
+      if (!data.session) {
+        setInfo("Akun dibuat. Cek email untuk konfirmasi, lalu masuk kembali.");
+        setLoading(false);
+        return;
+      }
+    } else {
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      if (signInError) {
+        setError("Email atau password salah. Silakan coba lagi.");
+        setLoading(false);
+        return;
+      }
+    }
 
-    if (error) {
-      setError("Email atau password salah. Silakan coba lagi.");
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      setError("Sesi tidak valid. Silakan coba lagi.");
+      setLoading(false);
+      return;
+    }
+
+    let { data: isAdmin } = await supabase.rpc("has_role", {
+      _user_id: user.id,
+      _role: "admin",
+    });
+
+    if (!isAdmin) {
+      // Bootstrap: the very first account may claim admin access.
+      const { data: claimed } = await supabase.rpc("claim_first_admin");
+      isAdmin = Boolean(claimed);
+    }
+
+    if (!isAdmin) {
+      await supabase.auth.signOut();
+      setError("Akun ini belum memiliki akses admin. Hubungi administrator sistem.");
       setLoading(false);
       return;
     }
 
     navigate({ to: "/admin" });
   };
+
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
