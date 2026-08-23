@@ -171,22 +171,33 @@ function LoginPage() {
               </div>
             )}
 
+            {info && (
+              <div className="rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-sm text-primary">
+                {info}
+              </div>
+            )}
+
             <button
               id="login-submit-btn"
               type="submit"
               disabled={loading}
               className="w-full rounded-xl bg-primary py-3.5 font-semibold text-primary-foreground shadow-soft transition-smooth hover:-translate-y-0.5 hover:shadow-lift disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {loading ? "Masuk..." : "Masuk ke Panel Admin"}
+              {loading
+                ? "Memproses..."
+                : mode === "login"
+                  ? "Masuk ke Panel Admin"
+                  : "Buat Akun Admin"}
             </button>
           </form>
 
           <p className="mt-6 text-center text-xs text-muted-foreground">
-            Akun admin dibuat oleh administrator sistem.{" "}
+            Akun pertama yang mendaftar otomatis menjadi admin.{" "}
             <a href="/" className="text-primary hover:underline">
               Kembali ke website
             </a>
           </p>
+
         </div>
       </div>
     </div>
